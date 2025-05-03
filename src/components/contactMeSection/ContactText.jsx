@@ -3,9 +3,9 @@ const ContactText = () => {
     <div>
       <h2 className="text-orange text-3xl mb-4">Get In Touch</h2>
       <p>
-        Feel free to reach out if you’d like to collaborate
+        Feel free to reach out.
         <br />
-        you are just a few clicks away!
+        **This doesn't work just mail me directly 😁**
       </p>
     </div>
   );
