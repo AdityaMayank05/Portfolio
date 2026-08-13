@@ -1,30 +1,33 @@
-import AboutMeMain from "./components/aboutMeSection/AboutMeMain";
-import ContactMeMain from "./components/contactMeSection/ContactMeMain";
-import ExperienceMain from "./components/experienceSection/ExperienceMain";
-import FooterMain from "./components/footer/FooterMain";
-import HeroGradient from "./components/heroSection/HeroGradient";
-import HeroMain from "./components/heroSection/HeroMain";
+import React, { useState } from "react";
 import NavbarMain from "./components/navbar/NavbarMain";
-import ProjectsMain from "./components/projectsSection/ProjectsMain";
+import HeroMain from "./components/heroSection/HeroMain";
+import AboutMeMain from "./components/aboutMeSection/AboutMeMain";
 import SkillsMain from "./components/skillsSection/SkillsMain";
-import SubSkills from "./components/skillsSection/SubSkills";
-import SubHeroMain from "./components/subHeroSection/SubHeroMain";
+import ProjectsMain from "./components/projectsSection/ProjectsMain";
+import ContactMeMain from "./components/contactMeSection/ContactMeMain";
+import FooterMain from "./components/footer/FooterMain";
+import CustomCursor from "./components/CustomCursor";
+import Preloader from "./components/Preloader";
+import TravelingPhoto from "./components/TravelingPhoto";
 
 function App() {
+  const [loading, setLoading] = useState(true);
+
   return (
-    <main className="font-body text-white relative overflow-hidden">
+    <>
+      {loading && <Preloader onComplete={() => setLoading(false)} />}
+      <CustomCursor />
+      <TravelingPhoto />
       <NavbarMain />
-      <HeroMain />
-      <HeroGradient />
-      <SubHeroMain />
-      <AboutMeMain />
-      <SkillsMain />
-      <SubSkills />
-      {/* <ExperienceMain /> */}
-      <ProjectsMain />
-      <ContactMeMain />
+      <main>
+        <HeroMain />
+        <AboutMeMain />
+        <SkillsMain />
+        <ProjectsMain />
+        <ContactMeMain />
+      </main>
       <FooterMain />
-    </main>
+    </>
   );
 }
 

@@ -1,52 +1,57 @@
-import { Link } from "react-scroll";
+import React, { useEffect, useRef } from "react";
+import { gsap } from "../../utils/gsapAnimations";
+import { initTextSplitReveal, scrollToSection } from "../../utils/gsapAnimations";
 
 const FooterMain = () => {
-  const footerLinks = [
-    {
-      name: "About Me",
-      section: "about",
-    },
-    {
-      name: "Skills",
-      section: "skills",
-    },
-    // {
-    //   name: "Experience",
-    //   section: "experience",
-    // },
-    {
-      name: "Projects",
-      section: "projects",
-    },
+  const footerRef = useRef(null);
+  const nameRef = useRef(null);
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      initTextSplitReveal(nameRef.current, { start: "top 90%" });
+    }, footerRef);
+
+    return () => ctx.revert();
+  }, []);
+
+  const navLinks = [
+    { label: "About", target: "about" },
+    { label: "Skills", target: "skills" },
+    { label: "Projects", target: "projects" },
+    { label: "Contact", target: "contact" },
   ];
+
   return (
-    <div className="px-4">
-      <div className="w-full h-[1px] bg-lightGrey mt-24"></div>
-      <div className="md:flex justify-between mt-4 max-w-[1200px] mx-auto sm:hidden">
-        <p className="text-3xl text-lightGrey ">Aditya Mayank Sinha</p>
-        <ul className="flex gap-4 text-lightGrey text-xl">
-          {footerLinks.map((item, index) => {
-            return (
-              <li key={index}>
-                <Link
-                  spy={true}
-                  smooth={true}
-                  duration={500}
-                  offset={-120}
-                  to={item.section}
-                  className="hover:text-white transition-all duration-500 cursor-pointer"
+    <footer ref={footerRef} className="footer">
+      <div className="container">
+        <div ref={nameRef} className="footer-name">
+          ADITYA MAYANK SINHA
+        </div>
+
+        <div className="footer-content">
+          <ul className="footer-links">
+            {navLinks.map((item) => (
+              <li key={item.target}>
+                <a
+                  href={`#${item.target}`}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    scrollToSection(item.target);
+                  }}
+                  className="footer-link"
                 >
-                  {item.name}
-                </Link>
+                  {item.label}
+                </a>
               </li>
-            );
-          })}
-        </ul>
+            ))}
+          </ul>
+
+          <div className="footer-copyright">
+            © {new Date().getFullYear()} Aditya Mayank Sinha. All Rights Reserved.
+          </div>
+        </div>
       </div>
-      <p className="max-w-[1200px] mx-auto text-right mt-2 mb-12 text-sm text-lightBrown">
-        © 2025 Aditya Mayank | All Rights Reserved.
-      </p>
-    </div>
+    </footer>
   );
 };
 
